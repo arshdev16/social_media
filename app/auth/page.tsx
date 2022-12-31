@@ -3,17 +3,28 @@ import React from "react";
 import "../../styles/globals.css";
 import { auth, db } from "../../lib/firebase";
 import {
-  GoogleAuthProvider,
-  signInWithPopup,
+  signInWithEmailAndPassword,
   setPersistence,
-  browserLocalPersistence,
+  browserLocalPersistence
 } from "firebase/auth";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import GoogleLogin from "../../components/authWithGoogle";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 
 type Props = {};
 
-const Login = (props: Props) => {
+interface FormValues {
+  name: string;
+  email: string;
+  password: string;
+}
+
+const Auth = (props: Props) => {
+ 
+  const router = useRouter();
+
   const validationSchema = Yup.object().shape({
     name: Yup.string().required(),
     email: Yup.string().email().required(),
@@ -22,12 +33,36 @@ const Login = (props: Props) => {
       .required(),
   });
 
+  const AuthWithEmailAndPassword = async (values: FormValues) => [
+    setPersistence(auth, browserLocalPersistence).then(async () => {
+      signInWithEmailAndPassword(auth, values.email, values.password).then(
+        async (result) => {
+          const user = result.user;
+          const docRef = doc(db, `users/${user.uid}`);
+          const userDoc = await getDoc(docRef);
+          if (!userDoc.exists()) {
+            const userData = {
+              name: values.name,
+              userId: user.uid,
+              email: values.email,
+              tag: user.uid.slice(0,4)
+            };
+            await setDoc(docRef, userData);
+          }
+          return router.push('/');
+        }
+      );
+    }),
+  ];
+
   return (
     <div className="flex flex-col h-screen items-center">
       <h1 className="my-5 font-bold text-xl">Login to continue</h1>
       <Formik
         initialValues={{ name: "", email: "", password: "" }}
-        onSubmit={(values) => alert(JSON.stringify(values))}
+        onSubmit={(values) => {
+          AuthWithEmailAndPassword(values)
+        }}
         validateOnMount={true}
         validationSchema={validationSchema}
       >
@@ -38,7 +73,7 @@ const Login = (props: Props) => {
                 Name
               </label>
               <Field
-                className="bg-[#f1f1f1] outline-none border-1 border-black"
+                className="bg-[#f1f1f1] outline-none border-1 border-black rounded-lg"
                 name="name"
                 id="name"
               />
@@ -51,7 +86,7 @@ const Login = (props: Props) => {
                 Email
               </label>
               <Field
-                className="bg-[#f1f1f1] outline-none border-1 border-black"
+                className="bg-[#f1f1f1] outline-none border-1 border-black rounded-lg"
                 name="email"
                 id="email"
                 type="email"
@@ -65,7 +100,7 @@ const Login = (props: Props) => {
                 Password
               </label>
               <Field
-                className="bg-[#f1f1f1] outline-none border-1 border-black"
+                className="bg-[#f1f1f1] outline-none border-1 border-black rounded-lg"
                 name="password"
                 id="password"
                 type="password"
@@ -96,8 +131,13 @@ const Login = (props: Props) => {
           </Form>
         )}
       </Formik>
+
+      <div className="flex flex-col items-center my-4 w-1/2">
+        <h1 className="font-bold text-xl text-gray-700">OR</h1>
+        <GoogleLogin />
+      </div>
     </div>
   );
 };
 
-export default Login;
+export default Auth;
