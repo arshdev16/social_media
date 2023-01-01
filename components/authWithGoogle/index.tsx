@@ -28,6 +28,7 @@ const GoogleLogin = (props: Props) => {
             name: user.displayName,
             userId: user.uid,
             email: user.email,
+            tag: user.uid.slice(0,4)
           };
           await setDoc(userRef, userData);
           return router.push("/");

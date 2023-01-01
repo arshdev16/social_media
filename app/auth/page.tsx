@@ -5,7 +5,8 @@ import { auth, db } from "../../lib/firebase";
 import {
   signInWithEmailAndPassword,
   setPersistence,
-  browserLocalPersistence
+  browserLocalPersistence,
+  createUserWithEmailAndPassword
 } from "firebase/auth";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -22,7 +23,6 @@ interface FormValues {
 }
 
 const Auth = (props: Props) => {
- 
   const router = useRouter();
 
   const validationSchema = Yup.object().shape({
@@ -33,27 +33,33 @@ const Auth = (props: Props) => {
       .required(),
   });
 
-  const AuthWithEmailAndPassword = async (values: FormValues) => [
+  const AuthWithEmailAndPassword = async (values: FormValues) => {
+    console.log("1");
     setPersistence(auth, browserLocalPersistence).then(async () => {
-      signInWithEmailAndPassword(auth, values.email, values.password).then(
+      console.log("2");
+      createUserWithEmailAndPassword(auth, values.email, values.password).then(
         async (result) => {
+          console.log("3");
           const user = result.user;
+
+          console.log("4");
           const docRef = doc(db, `users/${user.uid}`);
-          const userDoc = await getDoc(docRef);
-          if (!userDoc.exists()) {
-            const userData = {
-              name: values.name,
-              userId: user.uid,
-              email: values.email,
-              tag: user.uid.slice(0,4)
-            };
-            await setDoc(docRef, userData);
-          }
-          return router.push('/');
+
+          const userData = {
+            name: values.name,
+            userId: user.uid,
+            email: values.email,
+            tag: user.uid.slice(0, 4),
+          };
+
+          console.log("5");
+          await setDoc(docRef, userData);
+          console.log("6");
+          return router.push("/");
         }
       );
-    }),
-  ];
+    });
+  };
 
   return (
     <div className="flex flex-col h-screen items-center">
@@ -61,7 +67,7 @@ const Auth = (props: Props) => {
       <Formik
         initialValues={{ name: "", email: "", password: "" }}
         onSubmit={(values) => {
-          AuthWithEmailAndPassword(values)
+          AuthWithEmailAndPassword(values);
         }}
         validateOnMount={true}
         validationSchema={validationSchema}
