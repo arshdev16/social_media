@@ -3,12 +3,12 @@ import React from "react";
 import { auth } from "../../../lib/firebase";
 import {
   setPersistence,
-  browserLocalPersistence,
   signInWithEmailAndPassword,
+  indexedDBLocalPersistence
 } from "firebase/auth";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import GoogleLogin from "../../../components/authWithGoogle";
+import GoogleLogin from "../../../components/AuthWithGoogle";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -30,7 +30,7 @@ const Auth = (props: Props) => {
   });
 
   const LoginWithEmailAndPassword = async (values: FormValues) => {
-    setPersistence(auth, browserLocalPersistence).then(async () => {
+    setPersistence(auth, indexedDBLocalPersistence).then(async () => {
       signInWithEmailAndPassword(auth, values.email, values.password);
     });
     return router.push("/");

@@ -4,7 +4,6 @@ import GoogleLogo from "../../public/google.svg";
 import {
   setPersistence,
   signInWithPopup,
-  browserLocalPersistence,
   indexedDBLocalPersistence,
   GoogleAuthProvider,
 } from "firebase/auth";

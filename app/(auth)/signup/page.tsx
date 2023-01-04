@@ -1,18 +1,17 @@
 "use client";
 import React from "react";
-import "../../styles/globals.css";
-import { auth, db } from "../../lib/firebase";
+import { auth, db } from "../../../lib/firebase";
 import {
-  signInWithEmailAndPassword,
   setPersistence,
-  browserLocalPersistence,
-  createUserWithEmailAndPassword
+  indexedDBLocalPersistence,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import GoogleLogin from "../../components/authWithGoogle";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import GoogleLogin from "../../../components/AuthWithGoogle";
+import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type Props = {};
 
@@ -35,7 +34,7 @@ const Auth = (props: Props) => {
 
   const AuthWithEmailAndPassword = async (values: FormValues) => {
     console.log("1");
-    setPersistence(auth, browserLocalPersistence).then(async () => {
+    setPersistence(auth, indexedDBLocalPersistence).then(async () => {
       console.log("2");
       createUserWithEmailAndPassword(auth, values.email, values.password).then(
         async (result) => {
@@ -141,6 +140,16 @@ const Auth = (props: Props) => {
       <div className="flex flex-col items-center my-4 w-1/2">
         <h1 className="font-bold text-xl text-gray-700">OR</h1>
         <GoogleLogin />
+      </div>
+
+      <div className="flex flex-col items-center my-2 w-1/2">
+        <span>
+          {" "}
+          Already have an account{" "}
+          <Link href={"/login"} className="text-blue-400">
+            Login
+          </Link>
+        </span>
       </div>
     </div>
   );
