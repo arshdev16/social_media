@@ -33,15 +33,11 @@ const Auth = (props: Props) => {
   });
 
   const AuthWithEmailAndPassword = async (values: FormValues) => {
-    console.log("1");
     setPersistence(auth, indexedDBLocalPersistence).then(async () => {
-      console.log("2");
       createUserWithEmailAndPassword(auth, values.email, values.password).then(
         async (result) => {
-          console.log("3");
           const user = result.user;
 
-          console.log("4");
           const docRef = doc(db, `users/${user.uid}`);
 
           const userData = {
@@ -49,11 +45,10 @@ const Auth = (props: Props) => {
             userId: user.uid,
             email: values.email,
             tag: user.uid.slice(0, 4),
+            profilePic: "https://source.unsplash.com/random",
           };
 
-          console.log("5");
           await setDoc(docRef, userData);
-          console.log("6");
           return router.push("/");
         }
       );
