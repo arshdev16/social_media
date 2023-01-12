@@ -27,8 +27,8 @@ const GoogleLogin = (props: Props) => {
             name: user.displayName,
             userId: user.uid,
             email: user.email,
-            tag: user.uid.slice(0,4),
-            profilePic: 'source.unsplash.com/random'
+            tag: user.uid.slice(0, 4),
+            profilePic: "https://api.dicebear.com/5.x/bottts-neutral/svg",
           };
           await setDoc(userRef, userData);
           return router.push("/");

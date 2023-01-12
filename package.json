@@ -11,6 +11,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@dicebear/collection": "^5.0.2",
+    "@dicebear/core": "^5.0.2",
     "dotenv": "^16.0.3",
     "firebase": "^9.15.0",
     "formik": "^2.2.9",

@@ -7,7 +7,9 @@ import Footer from "../components/Footer";
 import { usePathname } from "next/navigation";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../lib/firebase";
-import { doc, DocumentData, getDoc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
+import { UserContext } from "../lib/Context";
+import { userDocInterface } from "../lib/interfaces";
 
 export default function RootLayout({
   children,
@@ -15,42 +17,48 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const [user] = useAuthState(auth);
-  const [username, setUsername] = useState(null);
-  const [profilePic, setProfilePic] = useState(null);
+  const [userDoc, setUserDoc] = useState<userDocInterface>({
+    name: '',
+    email: '',
+    userId: '',
+    profilePic: '',
+    tag: '',
+  });
 
   useEffect(() => {
     let unsubscribe;
 
     if (user) {
       const ref = doc(db, "users", user.uid);
-      unsubscribe = onSnapshot(ref, async (doc) => {     
-        setUsername(doc.data()?.name);
-        setProfilePic(doc.data()?.profilePic);
+      unsubscribe = onSnapshot(ref, async (doc) => {
+        setUserDoc({
+          email: doc.data()?.email,
+          name: doc.data()?.name,
+          profilePic: doc.data()?.profilePic,
+          tag: doc.data()?.tag,
+          userId: doc.data()?.userId,
+        });
       });
-    } else {
-      setUsername(null);
     }
-
     return unsubscribe;
   }, [user]);
 
-
-
-
   return (
     <html>
-      <head />
-      <body>
-        <Navbar />
-        {children}
-        {!(usePathname() === "/login" || usePathname() === "/signup") ? (
-          <>
-            <Footer />
-          </>
-        ) : (
-          <></>
-        )}
-      </body>
+      <UserContext.Provider value={userDoc}>
+        <head />
+        <body>
+          <Navbar />
+          {children}
+          {!(usePathname() === "/login" || usePathname() === "/signup") ? (
+            <>
+              <Footer />
+            </>
+          ) : (
+            <></>
+          )}
+        </body>
+      </UserContext.Provider>
     </html>
   );
 }

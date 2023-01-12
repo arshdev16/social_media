@@ -1,15 +1,23 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { auth } from "../lib/firebase";
-import { userDocInterface } from "../lib/interfaces";
-import { DocumentData } from "firebase/firestore";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useUserContext } from "../lib/Context";
+import Image from "next/image";
+
 type Props = {};
 
 const HomeScreen = (props: Props) => {
+  const { profilePic } = useUserContext();
   return (
     <div>
-      <h1>Home screen</h1>
+      {auth.currentUser !== null ? (
+        <>
+          <h1>Logged in</h1>
+          <Image alt="profile pic" src={profilePic} width={100} height={100}/>
+        </>
+      ) : (
+        <h1>logged out</h1>
+      )}
     </div>
   );
 };

@@ -1,7 +1,12 @@
 export interface userDocInterface {
-  name: string | null;
-  userId: string | null;
-  email: string | null;
-  tag: string | null;
-  profilePic: string | null;
+  name: string;
+  userId: string;
+  email: string;
+  tag: string;
+  profilePic: string;
+}
+
+export interface userState {
+  userDoc: userDocInterface
+  setUserDoc: (doc: userDocInterface) => void
 }

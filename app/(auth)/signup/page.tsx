@@ -12,6 +12,7 @@ import GoogleLogin from "../../../components/AuthWithGoogle";
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+// import { generateAvtar } from "../../../lib/hooks";
 
 type Props = {};
 
@@ -37,15 +38,15 @@ const Auth = (props: Props) => {
       createUserWithEmailAndPassword(auth, values.email, values.password).then(
         async (result) => {
           const user = result.user;
-
           const docRef = doc(db, `users/${user.uid}`);
+          // const svg = generateAvtar();
 
           const userData = {
             name: values.name,
             userId: user.uid,
             email: values.email,
             tag: user.uid.slice(0, 4),
-            profilePic: "https://source.unsplash.com/random",
+            profilePic: "https://api.dicebear.com/5.x/bottts-neutral/svg",
           };
 
           await setDoc(docRef, userData);
