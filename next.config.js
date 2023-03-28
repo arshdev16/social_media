@@ -19,10 +19,6 @@ module.exports = {
         port: "",
         pathname: "/5.x/bottts-neutral/**",
       },
-      {
-        protocol: "https",
-        hostname: "**",
-      },
     ],
   },
 };

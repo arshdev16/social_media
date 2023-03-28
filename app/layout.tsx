@@ -23,6 +23,7 @@ export default function RootLayout({
     userId: '',
     profilePic: '',
     tag: '',
+    followers: 0
   });
 
   useEffect(() => {
@@ -37,6 +38,7 @@ export default function RootLayout({
           profilePic: doc.data()?.profilePic,
           tag: doc.data()?.tag,
           userId: doc.data()?.userId,
+          followers: doc.data()?.followers
         });
       });
     }

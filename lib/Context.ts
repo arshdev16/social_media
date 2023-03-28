@@ -7,6 +7,7 @@ export const UserContext = createContext<userDocInterface>({
   userId: '',
   profilePic: '',
   tag: '',
+  followers: 0
 });
 
 export const useUserContext = () => useContext(UserContext);

@@ -4,7 +4,7 @@ import { auth } from "../../../lib/firebase";
 import {
   setPersistence,
   signInWithEmailAndPassword,
-  indexedDBLocalPersistence
+  indexedDBLocalPersistence,
 } from "firebase/auth";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
@@ -49,7 +49,7 @@ const Auth = (props: Props) => {
       >
         {({ errors, touched }) => (
           <Form>
-            <div className="flex flex-col items-center h-20">
+            <div className="flex flex-col items-center h-20 text-black">
               <label htmlFor="email" className="font-semibold">
                 Email
               </label>
@@ -80,13 +80,15 @@ const Auth = (props: Props) => {
             <div className="flex flex-col items-center">
               <button
                 disabled={
-                  errors.email !== undefined && errors.password !== undefined
+                  errors.email !== undefined &&
+                  errors.password !== undefined
                 }
                 type="submit"
                 className={`${
-                  errors.email !== undefined && errors.password !== undefined
-                    ? "bg-blue-200"
-                    : "bg-blue-400"
+                  errors.email !== undefined &&
+                  errors.password !== undefined
+                    ? "bg-blue-400"
+                    : "bg-blue-200"
                 } text-white rounded-lg px-4 py-2 `}
               >
                 Submit

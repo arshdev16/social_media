@@ -14,8 +14,8 @@ const Footer = (props: Props) => {
           href={"/"}
           className={
             usePathname() === "/"
-              ? "border-black p-1 border-b-4"
-              : "p-1 border-b-4 border-white"
+              ? "border-white p-1 border-b-4"
+              : "p-1 border-b-4 border-black"
           }
         >
           <AiTwotoneHome size={40} />
@@ -25,8 +25,8 @@ const Footer = (props: Props) => {
           href={"/"}
           className={
             usePathname() === "/"
-              ? "border-black p-1 border-b-4"
-              : "p-1 border-b-4 border-white"
+              ? "border-white p-1 border-b-4"
+              : "p-1 border-b-4 border-black"
           }
         >
           <AiOutlineHome size={40} />
@@ -36,8 +36,8 @@ const Footer = (props: Props) => {
         href={"/"}
         className={
           usePathname() === "/search"
-            ? "border-black p-1 border-b-4"
-            : "p-1 border-b-4 border-white"
+            ? "border-white p-1 border-b-4"
+            : "p-1 border-b-4 border-black"
         }
       >
         <AiOutlineSearch size={40} />
@@ -46,8 +46,8 @@ const Footer = (props: Props) => {
         href={"/profile"}
         className={
           usePathname() === "/profile"
-            ? "border-black p-1 border-b-4"
-            : "p-1 border-b-4 border-white"
+            ? "border-white p-1 border-b-4"
+            : "p-1 border-b-4 border-black"
         }
       >
         <CgProfile size={40} />

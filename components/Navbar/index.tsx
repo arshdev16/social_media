@@ -11,31 +11,30 @@ const Navbar = (props: Props) => {
   const { profilePic } = useUserContext();
   return (
     <div className="flex justify-between p-4 items-center">
-      <h1 className="text-blue-400 font-bold text-xl">Logo here</h1>
-      <Link href="/">
-        {auth.currentUser !== null ? (
-          <>
-            <img
-              width={40}
-              height={50}
-              className="rounded-full"
-              alt="default picture"
-              // src={profilePic ? profilePic : Default}
-              src={profilePic}
-            />
-          </>
-        ) : (
-          <>
-            {/* <Image
-              src={profilePic? profilePic: default}
-              alt="Profile Picture"
-              width={40}
-              height={50}
-              className="rounded-full"
-            /> */}
-          </>
-        )}
+      <Link href={"/"}>
+        <h1 className="text-blue-400 font-bold text-xl">Logo here</h1>
       </Link>
+      {auth.currentUser === null ? (
+        <Link href="/login">
+          <Image
+            width={40}
+            height={50}
+            className="rounded-full"
+            alt="default picture"
+            src={Default}
+          />
+        </Link>
+      ) : (
+        <Link href="/profile">
+          <img
+            src={profilePic}
+            alt="Profile Picture"
+            width={40}
+            height={50}
+            className="rounded-full"
+          />
+        </Link>
+      )}
     </div>
   );
 };

@@ -4,9 +4,10 @@ export interface userDocInterface {
   email: string;
   tag: string;
   profilePic: string;
+  followers: number;
 }
 
 export interface userState {
-  userDoc: userDocInterface
-  setUserDoc: (doc: userDocInterface) => void
+  userDoc: userDocInterface;
+  setUserDoc: (doc: userDocInterface) => void;
 }

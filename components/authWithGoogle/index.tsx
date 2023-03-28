@@ -17,6 +17,10 @@ const GoogleLogin = (props: Props) => {
   const provider = new GoogleAuthProvider();
   const router = useRouter();
 
+  function capitalizeFirstLetter(str: string): string {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
   const LoginWithGoogle = () => {
     setPersistence(auth, indexedDBLocalPersistence).then(async () => {
       signInWithPopup(auth, provider)
@@ -24,11 +28,12 @@ const GoogleLogin = (props: Props) => {
           const user = result.user;
           const userRef = doc(db, `users/${user.uid}`);
           const userData = {
-            name: user.displayName,
+            name: capitalizeFirstLetter(user.displayName!),
             userId: user.uid,
             email: user.email,
             tag: user.uid.slice(0, 4),
             profilePic: "https://api.dicebear.com/5.x/bottts-neutral/svg",
+            followers: 0,
           };
           await setDoc(userRef, userData);
           return router.push("/");
@@ -49,7 +54,7 @@ const GoogleLogin = (props: Props) => {
     <>
       <button
         onClick={LoginWithGoogle}
-        className="flex bg-[#f1f1f1] w-full justify-center py-2 my-3"
+        className="flex rounded-3xl bg-[#0e0e0e] w-full justify-center py-2 my-3"
       >
         Login in with
         <Image width={30} alt="Google Logo" className="mx-1" src={GoogleLogo} />

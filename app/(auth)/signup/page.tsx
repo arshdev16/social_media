@@ -12,7 +12,7 @@ import GoogleLogin from "../../../components/AuthWithGoogle";
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-// import { generateAvtar } from "../../../lib/hooks";
+import { userDocInterface } from "../../../lib/interfaces";
 
 type Props = {};
 
@@ -26,12 +26,16 @@ const Auth = (props: Props) => {
   const router = useRouter();
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required(),
+    name: Yup.string().required().min(6, "Name should be atleast 6 words"),
     email: Yup.string().email().required(),
     password: Yup.string()
       .min(8, "Password has to be atleast 8 words")
       .required(),
   });
+
+  function capitalizeFirstLetter(str: string): string {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
 
   const AuthWithEmailAndPassword = async (values: FormValues) => {
     setPersistence(auth, indexedDBLocalPersistence).then(async () => {
@@ -39,14 +43,14 @@ const Auth = (props: Props) => {
         async (result) => {
           const user = result.user;
           const docRef = doc(db, `users/${user.uid}`);
-          // const svg = generateAvtar();
 
-          const userData = {
-            name: values.name,
+          const userData: userDocInterface = {
+            name: capitalizeFirstLetter(values.name),
             userId: user.uid,
             email: values.email,
             tag: user.uid.slice(0, 4),
             profilePic: "https://api.dicebear.com/5.x/bottts-neutral/svg",
+            followers: 0
           };
 
           await setDoc(docRef, userData);
@@ -69,7 +73,7 @@ const Auth = (props: Props) => {
       >
         {({ errors, touched }) => (
           <Form>
-            <div className="flex flex-col items-center h-20">
+            <div className="flex flex-col items-center h-20 text-black">
               <label htmlFor="name" className="font-semibold">
                 Name
               </label>
@@ -138,11 +142,10 @@ const Auth = (props: Props) => {
         <GoogleLogin />
       </div>
 
-      <div className="flex flex-col items-center my-2 w-1/2">
+      <div className="flex flex-row justify-center items-center my-2 w-max">
         <span>
-          {" "}
-          Already have an account{" "}
-          <Link href={"/login"} className="text-blue-400">
+          Already have an account
+          <Link href={"/login"} className="text-blue-400 mx-2">
             Login
           </Link>
         </span>
