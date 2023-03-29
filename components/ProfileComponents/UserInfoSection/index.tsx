@@ -6,7 +6,7 @@ type Props = {};
 const UserInfoSection = (props: Props) => {
   const { profilePic, name, followers } = useUserContext();
   return (
-    <div className="flex">
+    <div className="flex mt-5 mb-3 mx-3">
       <div>
         <img src={profilePic} className="h-28 w-28 rounded-2xl" />
       </div>
