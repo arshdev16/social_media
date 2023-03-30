@@ -8,14 +8,14 @@ type Props = {};
 
 const Footer = (props: Props) => {
   return (
-    <div className="flex justify-evenly items-center fixed bottom-0 w-full h-14">
+    <div className="bg-[#1D1D1D] flex justify-evenly items-center fixed bottom-0 w-full h-14">
       {usePathname() === "/" ? (
         <Link
           href={"/"}
           className={
             usePathname() === "/"
               ? "border-white p-1 border-b-4"
-              : "p-1 border-b-4 border-black"
+              : "p-1 border-b-4 border-[#1D1D1D]"
           }
         >
           <AiTwotoneHome size={40} />
@@ -26,7 +26,7 @@ const Footer = (props: Props) => {
           className={
             usePathname() === "/"
               ? "border-white p-1 border-b-4"
-              : "p-1 border-b-4 border-black"
+              : "p-1 border-b-4 border-[#1D1D1D]"
           }
         >
           <AiOutlineHome size={40} />

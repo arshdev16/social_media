@@ -11,3 +11,13 @@ export interface userState {
   userDoc: userDocInterface;
   setUserDoc: (doc: userDocInterface) => void;
 }
+
+export interface ImageComponentProps {
+  postedBy: string;
+  postedAt: string;
+  Image: string;
+  posterProfilePic: string;
+  likes: number;
+  comments: number;
+  imageCaption: string;
+};
