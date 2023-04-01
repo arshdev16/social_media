@@ -20,4 +20,13 @@ export interface ImageComponentProps {
   likes: number;
   comments: number;
   imageCaption: string;
-};
+}
+
+export interface TextComponentProps {
+  postedBy: string;
+  postedAt: string;
+  postText: string;
+  posterProfilePic: string;
+  likes: number;
+  comments: number;
+}

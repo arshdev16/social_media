@@ -37,7 +37,7 @@ const Footer = (props: Props) => {
         className={
           usePathname() === "/search"
             ? "border-white p-1 border-b-4"
-            : "p-1 border-b-4 border-black"
+            : "p-1 border-b-4 border-[#1D1D1D]"
         }
       >
         <AiOutlineSearch size={40} />
@@ -47,7 +47,7 @@ const Footer = (props: Props) => {
         className={
           usePathname() === "/profile"
             ? "border-white p-1 border-b-4"
-            : "p-1 border-b-4 border-black"
+            : "p-1 border-b-4 border-[#1D1D1D]"
         }
       >
         <CgProfile size={40} />
