@@ -4,6 +4,7 @@ import { AiOutlineLike } from "react-icons/ai";
 import { BiCommentDots } from "react-icons/bi";
 
 const ImageComponent = (props: ImageComponentProps) => {
+
   const {
     postedAt,
     postedBy,
@@ -17,12 +18,7 @@ const ImageComponent = (props: ImageComponentProps) => {
   return (
     <div className={`my-5`}>
       <div className="flex items-center">
-        <img
-          className="rounded-full"
-          width={40}
-          height={50}
-          src={posterProfilePic}
-        />
+        <img className="rounded-full w-[45px]" src={posterProfilePic} />
         <h1 className="mx-2">{postedBy.slice(0, -5)}</h1>
       </div>
       <div className="my-2">
@@ -51,6 +47,8 @@ const ImageComponent = (props: ImageComponentProps) => {
       </div>
     </div>
   );
+
+
 };
 
 export default ImageComponent;

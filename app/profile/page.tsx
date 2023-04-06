@@ -5,6 +5,7 @@ import { auth } from "../../lib/firebase";
 import DifferentPostsSplitter from "../../components/ProfileComponents/DifferentPostsSplitter";
 import ImageDisplayer from "../../components/PostDisplayers/ImageDisplayer";
 import TextDisplayer from "../../components/PostDisplayers/TextDisplayer";
+import VideoDisplayer from "../../components/PostDisplayers/VideoDisplayers";
 
 type Props = {};
 
@@ -109,8 +110,47 @@ const textPosts = [
   },
 ];
 
+const videos = [
+  {
+    postedBy: "Arsh#jri8",
+    postedAt: "28 march 2023",
+    Video: "../../../public/vid1.mp4",
+    posterProfilePic: "https://api.dicebear.com/5.x/bottts-neutral/svg",
+    likes: 0,
+    comments: 0,
+    VideoCaption: "HEHEHE LOL YOU SUCK ]",
+  },
+  {
+    postedBy: "Arsh#jri8",
+    postedAt: "28 march 2023",
+    Video: "../../../public/vid2.mp4",
+    posterProfilePic: "https://api.dicebear.com/5.x/bottts-neutral/svg",
+    likes: 0,
+    comments: 0,
+    VideoCaption: "HEHEHE LOL YOU SUCK ]",
+  },
+  {
+    postedBy: "Arsh#jri8",
+    postedAt: "28 march 2023",
+    Video: "../../../public/vid3.mp4",
+    posterProfilePic: "https://api.dicebear.com/5.x/bottts-neutral/svg",
+    likes: 0,
+    comments: 0,
+    VideoCaption: "HEHEHE LOL YOU SUCK ]",
+  },
+  {
+    postedBy: "Arsh#jri8",
+    postedAt: "28 march 2023",
+    Video: "../../../public/vid4.mp4",
+    posterProfilePic: "https://api.dicebear.com/5.x/bottts-neutral/svg",
+    likes: 0,
+    comments: 0,
+    VideoCaption: "HEHEHE LOL YOU SUCK ]",
+  },
+];
+
 const Profile = (props: Props) => {
-  const [currentlyShowing, setCurrentlyShowing] = useState<number>(1);
+  const [currentlyShowing, setCurrentlyShowing] = useState<number>(3);
 
   if (auth.currentUser !== null) {
     return (
@@ -122,7 +162,8 @@ const Profile = (props: Props) => {
         ) : currentlyShowing === 2 ? (
           <TextDisplayer textPosts={textPosts} />
         ) : (
-          <h1>3</h1>
+          <VideoDisplayer Videos={videos} />
+          // <h1>3</h1>
         )}
       </div>
     );

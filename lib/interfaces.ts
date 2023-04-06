@@ -30,3 +30,13 @@ export interface TextComponentProps {
   likes: number;
   comments: number;
 }
+
+export interface VideoComponentProps {
+  postedBy: string;
+  postedAt: string;
+  Video: string;
+  posterProfilePic: string;
+  likes: number;
+  comments: number;
+  VideoCaption: string;
+}

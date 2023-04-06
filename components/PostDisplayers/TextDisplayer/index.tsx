@@ -8,7 +8,7 @@ type Props = {
 
 const TextDisplayer = (props: Props) => {
   return (
-    <div className="m-5 pb-14">
+    <div className="pb-14">
       {props.textPosts.length <= 0 ? (
         <h1>No posts</h1>
       ) : (
