@@ -150,7 +150,7 @@ const videos = [
 ];
 
 const Profile = (props: Props) => {
-  const [currentlyShowing, setCurrentlyShowing] = useState<number>(3);
+  const [currentlyShowing, setCurrentlyShowing] = useState<number>(1);
 
   if (auth.currentUser !== null) {
     return (
@@ -162,8 +162,8 @@ const Profile = (props: Props) => {
         ) : currentlyShowing === 2 ? (
           <TextDisplayer textPosts={textPosts} />
         ) : (
-          <VideoDisplayer Videos={videos} />
-          // <h1>3</h1>
+          // <VideoDisplayer Videos={videos} />
+          <h1>3</h1>
         )}
       </div>
     );
