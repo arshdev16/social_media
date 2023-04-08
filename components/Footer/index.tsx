@@ -2,6 +2,7 @@ import React from "react";
 import { AiOutlineHome, AiTwotoneHome, AiOutlineSearch } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { usePathname } from "next/navigation";
+import { BsInputCursorText } from "react-icons/bs";
 import Link from "next/link";
 
 type Props = {};
@@ -32,6 +33,16 @@ const Footer = (props: Props) => {
           <AiOutlineHome size={40} />
         </Link>
       )}
+      <Link
+        href={"/textposts"}
+        className={
+          usePathname() === "/textposts"
+            ? "border-white p-1 border-b-4"
+            : "p-1 border-b-4 border-[#1D1D1D]"
+        }
+      >
+        <BsInputCursorText size={40} />
+      </Link>
       <Link
         href={"/"}
         className={
